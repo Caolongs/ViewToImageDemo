@@ -13,7 +13,6 @@
 @interface LJShowImageView ()
 @property (nonatomic, strong) UIView * bgView;
 @property (nonatomic, strong) UIView * contentView;
-@property (nonatomic, strong) UIView * superView;
 @property (nonatomic, copy)   dispatch_block_t confirmBlock;
 @property (nonatomic, strong) UIImage *image;
 
@@ -21,17 +20,16 @@
 
 @implementation LJShowImageView
 
-+ (LJShowImageView *)showViewWithImage:(UIImage *)image inView:(UIView *)superView confirmBlock:(dispatch_block_t)confirmBlock {
-    LJShowImageView *showView = [[LJShowImageView alloc] initWithImage:image inView:superView confirmBlock:confirmBlock];
++ (LJShowImageView *)showViewWithImage:(UIImage *)image confirmBlock:(dispatch_block_t)confirmBlock {
+    LJShowImageView *showView = [[LJShowImageView alloc] initWithImage:image confirmBlock:confirmBlock];
     [showView show];
     return showView;
 }
 
-- (instancetype)initWithImage:(UIImage *)image inView:(UIView *)superView confirmBlock:(dispatch_block_t)confirmBlock {
+- (instancetype)initWithImage:(UIImage *)image confirmBlock:(dispatch_block_t)confirmBlock {
 
     if (self = [super init]) {
         self.frame      = [UIScreen mainScreen].bounds;
-        _superView      = superView;
         _confirmBlock   = confirmBlock;
         _image          = image;
         
@@ -127,15 +125,11 @@
     [UIView animateWithDuration:0.3 animations:^{
         self.bgView.alpha = 0.5;
     }];
-    if (self.superView) {
-        [self.superView addSubview:self];
-    } else {
-        id appDelegate = [[UIApplication sharedApplication] delegate];
-        if ([appDelegate respondsToSelector:@selector(window)])
-        {
-            UIWindow * window = (UIWindow *) [appDelegate performSelector:@selector(window)];
-            [window addSubview:self];
-        }
+    id appDelegate = [[UIApplication sharedApplication] delegate];
+    if ([appDelegate respondsToSelector:@selector(window)])
+    {
+        UIWindow * window = (UIWindow *) [appDelegate performSelector:@selector(window)];
+        [window addSubview:self];
     }
     
     [self springingAnimationWithView:self.contentView];

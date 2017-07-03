@@ -10,6 +10,6 @@
 
 @interface LJShowImageView : UIView
 
-+ (LJShowImageView *)showViewWithImage:(UIImage *)image inView:(UIView *)superView confirmBlock:(dispatch_block_t)confirmBlock;
++ (LJShowImageView *)showViewWithImage:(UIImage *)image confirmBlock:(dispatch_block_t)confirmBlock;
 
 @end

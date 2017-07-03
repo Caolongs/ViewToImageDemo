@@ -43,7 +43,7 @@
 }
 - (void)clickBtn:(UIButton *)btn {
     UIImage *viewImage = [UIImage createViewImage:self.shareView];
-    [LJShowImageView showViewWithImage:viewImage inView:self.view confirmBlock:^{
+    [LJShowImageView showViewWithImage:viewImage confirmBlock:^{
         
     }];
 }
